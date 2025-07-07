@@ -58,7 +58,13 @@ A real-time parking analytics pipeline using the **Pathway** streaming engine to
         🕒 Hourly Tumbling Windows (Per SystemCodeNumber)
                                  │
                                  ▼
-   📈 Custom Demand Function: Demand = β·QueueLength − γ·Traffic + δ·IsSpecialDay + ε·VehicleTypeWeight
+   📈 Custom Demand Function: Demand = α * ((pw.this.occ_max - pw.this.occ_min) / pw.this.cap) + β·QueueLength − γ·Traffic + δ·IsSpecialDay + ε·VehicleTypeWeight
+                                 │
+                                 ▼
+       NormalizedDemand=(pw.left.Demand - pw.right.min_demand) / (pw.right.max_demand -   pw.right.min_demand + 1e-6),
+                                 │
+                                 ▼
+               Price=10 * (1 + λ * NormalizedDemand)
                                  │
                                  ▼
                  📊 Real-time Bokeh + Panel Dashboard
@@ -106,7 +112,7 @@ pip install pathway bokeh panel
 Run: Model1.ipynb
 
 # For Model 2
-Run: New Model2 (1).ipynb
+Run: best Model 2.ipynb
 ```
 
 Ensure your dataset is named `dataset.csv` and is available in the current directory.
@@ -116,9 +122,9 @@ Ensure your dataset is named `dataset.csv` and is available in the current direc
 ## 📁 Project Structure
 
 ```
-📦parking-demand-predictor
+📦parking-price-predictor
  ┣ 📜 Model1.ipynb
- ┣ 📜 New Model2 (1).ipynb
+ ┣ 📜 best Model 2.ipynb
  ┣ 📜 dataset.csv
  ┣ 📜 README.md
 ```
