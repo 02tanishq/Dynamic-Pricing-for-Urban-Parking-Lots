@@ -44,6 +44,7 @@ A real-time parking analytics pipeline using the **Pathway** streaming engine to
 ---
 
 ### ⚙️ Model 2 Architecture (Enhanced)
+ ![Untitled diagram _ Mermaid Chart-2025-07-07-132305](https://github.com/user-attachments/assets/ac5571ac-58df-40bc-a69c-c80bedf4d810)
 
 ```
            📥 CSV Input (Occupancy, Capacity, Timestamp, QueueLength, Traffic, VehicleType)
