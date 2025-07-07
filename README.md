@@ -21,57 +21,11 @@ A real-time parking analytics pipeline using the **Pathway** streaming engine to
 ## 🧠 Architecture Overview
 
 ### 🧩 Model 1 Architecture
-
-```
-                    📥 CSV Input (Occupancy, Capacity, Timestamp)
-                                 │
-                                 ▼
-                      🧹 Preprocessing (Pandas)
-                                 │
-                                 ▼
-            🧠 Pathway Schema Definition (SystemCodeNumber, Occupancy, Capacity)
-                                 │
-                                 ▼
-          🕒 Daily Windowing (Aggregate Max, Min, Avg Occupancy, Capacity)
-                                 │
-                                 ▼
-                  💸 Simple Price Formula: price = 10 + (occ_max - avg_occ)
-                                 │
-                                 ▼
-                          📊 Bokeh Visualization
-```
-
----
+          ![Untitled diagram _ Mermaid Chart-2025-07-07-132305](https://github.com/user-attachments/assets/ac5571ac-58df-40bc-a69c-c80bedf4d810)
 
 ### ⚙️ Model 2 Architecture (Enhanced)
- ![Untitled diagram _ Mermaid Chart-2025-07-07-132305](https://github.com/user-attachments/assets/ac5571ac-58df-40bc-a69c-c80bedf4d810)
+          ![Untitled diagram _ Mermaid Chart-2025-07-07-133658](https://github.com/user-attachments/assets/b289d116-2474-4e67-b5c6-b059a312ad8d)
 
-```
-           📥 CSV Input (Occupancy, Capacity, Timestamp, QueueLength, Traffic, VehicleType)
-                                 │
-                                 ▼
-                      🧹 Advanced Preprocessing (Categorical → Ordinal)
-                                 │
-                                 ▼
-       🧠 Pathway Schema (Adds QueueLength, Traffic, IsSpecialDay, VehicleTypeWeight)
-                                 │
-                                 ▼
-        🕒 Hourly Tumbling Windows (Per SystemCodeNumber)
-                                 │
-                                 ▼
-   📈 Custom Demand Function: Demand = α * ((pw.this.occ_max - pw.this.occ_min) / pw.this.cap) + β·QueueLength − γ·Traffic + δ·IsSpecialDay + ε·VehicleTypeWeight
-                                 │
-                                 ▼
-       NormalizedDemand=(pw.left.Demand - pw.right.min_demand) / (pw.right.max_demand -   pw.right.min_demand + 1e-6),
-                                 │
-                                 ▼
-               Price=10 * (1 + λ * NormalizedDemand)
-                                 │
-                                 ▼
-                 📊 Real-time Bokeh + Panel Dashboard
-```
-
----
 
 ## 📊 Comparison Table
 
