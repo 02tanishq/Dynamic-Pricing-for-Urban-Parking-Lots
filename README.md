@@ -1,5 +1,5 @@
 
-# 🚗 Intelligent Parking Demand Prediction System
+# 🚗 Intelligent Parkinglot Price Prediction System
 
 A real-time parking analytics pipeline using the **Pathway** streaming engine to compute dynamic parking prices and predict demand, based on occupancy, capacity, and additional context features like traffic and vehicle type.
 
